@@ -1,11 +1,10 @@
 import FormScreenContainer from '@/src/components/Containers/FormScreenContainer';
-import { Text } from 'react-native'
+import NewServiceForm from '@/src/components/Forms/NewServiceForm';
 
 const NewService = () => {
   return (
     <FormScreenContainer>
-      <Text>Novo serviço</Text>
-      
+      <NewServiceForm/>
     </FormScreenContainer>
   )
 }

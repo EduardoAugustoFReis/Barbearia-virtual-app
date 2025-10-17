@@ -1,60 +1,46 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { useState } from "react";
-import { Link } from "expo-router";
 import { theme } from "@/src/Theme";
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-const SignUpForm = () => {
+const NewServiceForm = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
+  const [duration, setDuration] = useState("");
+  const [price, setPrice] = useState("");
 
-  const handleSignUp = async () => {};
+  const handleNewService = async () => {
+    
+  }
 
   return (
-    <View style={styles.form}>
-      <Text style={styles.title}>Crie sua conta</Text>
-
+    <View>
+      <Text>Cadastre um novo Serviço</Text>
       <TextInput
         style={styles.input}
         value={name}
         onChangeText={setName}
-        keyboardType="name-phone-pad"
+        keyboardType="default"
         autoCapitalize="none"
-        accessibilityLabel="Campo do nome"
-        placeholder="Digite o seu nome"
+        placeholder="Digite o nome do serviço"
         placeholderTextColor={theme.colors.grey}
       />
 
       <TextInput
         style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
+        value={duration}
+        onChangeText={setDuration}
+        keyboardType="number-pad"
         autoCapitalize="none"
-        accessibilityLabel="Campo do e-mail"
-        placeholder="Digite seu E-mail"
+        placeholder="Digite a duração do serviço"
         placeholderTextColor={theme.colors.grey}
       />
 
       <TextInput
         style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
+        value={price}
+        onChangeText={setPrice}
+        keyboardType="number-pad"
         autoCapitalize="none"
-        accessibilityLabel="Campo da senha"
-        placeholder="Digite sua senha"
-        placeholderTextColor={theme.colors.grey}
-      />
-
-      <TextInput
-        style={styles.input}
-        value={phone}
-        onChangeText={setPhone}
-        keyboardType="phone-pad"
-        accessibilityLabel="Campo do telefone"
-        placeholder="Digite seu telefone"
+        placeholder="Digite o preço do serviço"
         placeholderTextColor={theme.colors.grey}
       />
 
@@ -63,20 +49,15 @@ const SignUpForm = () => {
           styles.button,
           pressed && styles.buttonPressed,
         ]}
-        onPress={handleSignUp}
+        onPress={handleNewService}
       >
         <Text style={styles.buttonText}>Criar conta</Text>
       </Pressable>
-
-      <Link href={`/`} style={styles.link}>
-        Já tem uma conta? faça o login
-      </Link>
     </View>
   );
 };
 
-export default SignUpForm;
-
+export default NewServiceForm;
 const styles = StyleSheet.create({
   form: {
     width: "100%",
@@ -113,11 +94,5 @@ const styles = StyleSheet.create({
   },
   buttonPressed: {
     opacity: 0.7,
-  },
-  link: {
-    marginTop: 10,
-    color: theme.colors.grey,
-    textAlign: "center",
-    fontSize: 16,
   },
 });

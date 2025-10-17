@@ -6,3 +6,11 @@ export interface IUser {
   role: "admin" | "barbeiro" | "cliente";
   avatar: string | null;
 }
+
+
+export interface IService {
+  id: number;
+  name: string;
+  duration: number;
+  price: number;
+}

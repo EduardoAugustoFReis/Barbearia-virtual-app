@@ -1,6 +1,7 @@
 import { theme } from "@/src/Theme";
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 const NewEmployeeForm = () => {
   const [name, setName] = useState("");
@@ -8,7 +9,6 @@ const NewEmployeeForm = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
-
   const handleNewEmployee = async () => {
     try {
     } catch (error) {
@@ -23,9 +23,8 @@ const NewEmployeeForm = () => {
         style={styles.input}
         value={name}
         onChangeText={setName}
-        placeholder="Digite seu e-mail"
+        placeholder="Digite o nome"
         placeholderTextColor={"#aaa"}
-        keyboardType="email-address"
         accessibilityLabel="Campo do e-mail"
         autoCapitalize="none"
       />
@@ -34,7 +33,7 @@ const NewEmployeeForm = () => {
         style={styles.input}
         value={email}
         onChangeText={setEmail}
-        placeholder="Digite seu e-mail"
+        placeholder="Digite o e-mail"
         placeholderTextColor={"#aaa"}
         keyboardType="email-address"
         accessibilityLabel="Campo do e-mail"
@@ -45,9 +44,8 @@ const NewEmployeeForm = () => {
         style={styles.input}
         value={phone}
         onChangeText={setPhone}
-        placeholder="Digite seu e-mail"
+        placeholder="Digite o telefone ex: 61 999999999"
         placeholderTextColor={"#aaa"}
-        keyboardType="email-address"
         accessibilityLabel="Campo do e-mail"
         autoCapitalize="none"
       />
@@ -56,11 +54,22 @@ const NewEmployeeForm = () => {
         style={styles.input}
         value={password}
         onChangeText={setPassword}
-        placeholder="Digite sua senha"
+        placeholder="Digite a senha"
         placeholderTextColor={"#aaa"}
         accessibilityLabel="Campo da senha"
         secureTextEntry
       />
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={role}
+          onValueChange={(itemValue) => setRole(itemValue)}
+          style={styles.picker}
+          dropdownIconColor={theme.colors.grey}
+        >
+          <Picker.Item label="Barbeiro" value="barbeiro" />
+          <Picker.Item label="Admin" value="admin" />
+        </Picker>
+      </View>
 
       <Pressable
         style={({ pressed }) => [
@@ -110,6 +119,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     fontWeight: "600",
+  },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: theme.colors.grey,
+    borderRadius: 8,
+    marginVertical: 10,
+    overflow: "hidden",
+  },
+  picker: {
+    color: theme.colors.grey,
+    backgroundColor: theme.colors.backgroundColorForm,
   },
   buttonPressed: {
     opacity: 0.7,
