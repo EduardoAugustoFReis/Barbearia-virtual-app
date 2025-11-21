@@ -1,3 +1,4 @@
+import { api } from "@/src/services/api";
 import { theme } from "@/src/Theme";
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
@@ -8,12 +9,24 @@ const NewServiceForm = () => {
   const [price, setPrice] = useState("");
 
   const handleNewService = async () => {
-    
+    if (!name || !duration || !price) {
+      return alert("Preencha todos os campos");
+    }
+    try {
+      const d = Number(duration);
+      const p = Number(price);
+
+      await api.post(`/services`, {name, duration: d, price: p});
+
+      alert('Serviço cadastrado com sucesso.');
+    } catch (error) {
+      console.log('Erro ao cadastrar serviço', error);
+    }
   }
 
   return (
-    <View>
-      <Text>Cadastre um novo Serviço</Text>
+    <View style={styles.form}>
+      <Text style={styles.title}>Cadastre um novo Serviço</Text>
       <TextInput
         style={styles.input}
         value={name}

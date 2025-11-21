@@ -9,16 +9,17 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
+import useAuth from "@/src/context/Auth/useAuth";
 import { api } from "@/src/services/api";
 
-const NewEmployeeForm = () => {
+const FormMyAccount = () => {
+  const { setUser } = useAuth();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [phone, setPhone] = useState("");
   const [avatar, setAvatar] = useState<string | null>(null);
 
   const handlePickImage = async () => {
@@ -55,14 +56,13 @@ const NewEmployeeForm = () => {
     );
   };
 
-  const handleNewEmployee = async () => {
+  const handleMyAccount = async () => {
     const formData = new FormData();
 
     if (name.trim()) formData.append("name", name);
     if (email.trim()) formData.append("email", email);
     if (password.trim()) formData.append("password", password);
     if (phone.trim()) formData.append("phone", phone);
-    if (role.trim()) formData.append("role", role);
 
     if (avatar) {
       formData.append("avatar", {
@@ -73,71 +73,62 @@ const NewEmployeeForm = () => {
     }
 
     try {
-      await api.post(`/users`, formData, {
+      const response = await api.put(`/users`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Usuário cadastrado com sucesso.");
+
+      setUser(response.data);
+      alert("Dados atualizados com sucesso.");
     } catch (error) {
-      console.log("Erro ao cadastrar funcionário", error);
+      console.log("Erro ao atualizar dados cadastrais", error);
     }
   };
 
   return (
     <View style={styles.form}>
-      <Text style={styles.title}>Cadastre um novo funcionário</Text>
+      <Text style={styles.title}>Atualize os dados da sua conta</Text>
       <TextInput
         style={styles.input}
         value={name}
         onChangeText={setName}
-        placeholder="Digite o nome"
-        placeholderTextColor={"#aaa"}
-        accessibilityLabel="Campo do e-mail"
+        keyboardType="default"
         autoCapitalize="none"
+        placeholder="Digite o novo nome"
+        placeholderTextColor={theme.colors.grey}
       />
 
       <TextInput
         style={styles.input}
         value={email}
         onChangeText={setEmail}
-        placeholder="Digite o e-mail"
-        placeholderTextColor={"#aaa"}
-        keyboardType="email-address"
-        accessibilityLabel="Campo do e-mail"
+        keyboardType="default"
         autoCapitalize="none"
-      />
-
-      <TextInput
-        style={styles.input}
-        value={phone}
-        onChangeText={setPhone}
-        placeholder="Digite o telefone ex: 61 999999999"
-        placeholderTextColor={"#aaa"}
-        accessibilityLabel="Campo do e-mail"
-        autoCapitalize="none"
+        placeholder="Digite o novo e-mail"
+        placeholderTextColor={theme.colors.grey}
       />
 
       <TextInput
         style={styles.input}
         value={password}
         onChangeText={setPassword}
-        placeholder="Digite a senha"
-        placeholderTextColor={"#aaa"}
-        accessibilityLabel="Campo da senha"
+        keyboardType="default"
         secureTextEntry
+        autoCapitalize="none"
+        placeholder="Digite a nova senha"
+        placeholderTextColor={theme.colors.grey}
       />
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={role}
-          onValueChange={(itemValue) => setRole(itemValue)}
-          style={styles.picker}
-          dropdownIconColor={theme.colors.grey}
-        >
-          <Picker.Item label="Barbeiro" value="barbeiro" />
-          <Picker.Item label="Admin" value="admin" />
-        </Picker>
-      </View>
+
+      <TextInput
+        style={styles.input}
+        value={phone}
+        onChangeText={setPhone}
+        keyboardType="default"
+        autoCapitalize="none"
+        placeholder="Ex: (61) 99999-9999"
+        placeholderTextColor={theme.colors.grey}
+      />
 
       <Pressable
         style={({ pressed }) => [
@@ -158,15 +149,15 @@ const NewEmployeeForm = () => {
           styles.button,
           pressed && styles.buttonPressed,
         ]}
-        onPress={handleNewEmployee}
+        onPress={handleMyAccount}
       >
-        <Text style={styles.buttonText}>Cadastrar</Text>
+        <Text style={styles.buttonText}>Criar conta</Text>
       </Pressable>
     </View>
   );
 };
 
-export default NewEmployeeForm;
+export default FormMyAccount;
 
 const styles = StyleSheet.create({
   form: {
@@ -180,7 +171,7 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.white,
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
   },
   input: {
@@ -192,13 +183,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginVertical: 10,
   },
-  button: {
-    backgroundColor: theme.colors.green,
+  buttonPick: {
+    backgroundColor: theme.colors.red,
     paddingVertical: 12,
     borderRadius: 8,
   },
-  buttonPick: {
-    backgroundColor: theme.colors.red,
+  button: {
+    backgroundColor: theme.colors.green,
     paddingVertical: 12,
     borderRadius: 8,
   },
@@ -207,17 +198,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 16,
     fontWeight: "600",
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: theme.colors.grey,
-    borderRadius: 8,
-    marginVertical: 10,
-    overflow: "hidden",
-  },
-  picker: {
-    color: theme.colors.grey,
-    backgroundColor: theme.colors.backgroundColorForm,
   },
   buttonPressed: {
     opacity: 0.7,
