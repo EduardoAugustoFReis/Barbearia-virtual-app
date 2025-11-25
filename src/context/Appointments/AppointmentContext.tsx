@@ -7,13 +7,17 @@ type CreateAppointmentDTO = {
   startTime: string;
 };
 
+
 type AppointmentContextProps = {
-  appointments: IAppointment[];
-  setAppointments: React.Dispatch<React.SetStateAction<IAppointment[]>>;
-  fetchAppointments: () => Promise<void>;
-  removeAppointment: (id: number) => void;
+  clientAppointments: IAppointment[];
+  setClientAppointments: React.Dispatch<React.SetStateAction<IAppointment[]>>;
+
+  barberAppointments: IAppointment[];
+  setBarberAppointments: React.Dispatch<React.SetStateAction<IAppointment[]>>;
+
   addAppointment: (appointment: IAppointment) => void;
-  createAppointment: (data: CreateAppointmentDTO) => Promise<IAppointment>;
+  removeAppointment: (id: number, role: "client" | "barber") => void;
+  createAppointment: (data: CreateAppointmentDTO) => Promise<IAppointment | undefined>;
 };
 
 export const AppointmentContext = createContext<

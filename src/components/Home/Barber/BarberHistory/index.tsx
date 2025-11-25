@@ -6,19 +6,19 @@ import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { theme } from "@/src/Theme";
 
 const BarberHistory = () => {
-  const { appointments, setAppointments } = useAppointment();
+  const { barberAppointments, setBarberAppointments } = useAppointment();
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
         const response = await api.get<IAppointment[]>(`/appointments/barbers`);
-        setAppointments(response.data);
+        setBarberAppointments(response.data);
       } catch (error) {
         console.log("erro ao buscar compromissos", error);
       }
     };
     fetchAppointments();
-  }, [setAppointments]);
+  }, [setBarberAppointments]);
 
   const handleChangeAppointmentStatus = async (
     id: number,
@@ -27,7 +27,7 @@ const BarberHistory = () => {
     try {
       await api.patch(`/appointments/${id}`, { status: statusChanged });
 
-      setAppointments((prev) =>
+      setBarberAppointments((prev) =>
         prev.map((appoint) =>
           appoint.id === id ? { ...appoint, status: statusChanged } : appoint
         )
@@ -49,7 +49,7 @@ const BarberHistory = () => {
           onPress: async () => {
             try {
               await api.delete(`/appointments/${id}`);
-              setAppointments((prev) => prev.filter((a) => a.id !== id));
+              setBarberAppointments((prev) => prev.filter((a) => a.id !== id));
             } catch (error) {
               console.log("Erro ao deletar", error);
             }
@@ -61,7 +61,7 @@ const BarberHistory = () => {
 
   return (
     <View style={styles.container}>
-      {appointments.map((appoint) => {
+      {barberAppointments.map((appoint) => {
         const startTime = new Date(appoint.startTime);
         const endTime = new Date(appoint.endTime);
 

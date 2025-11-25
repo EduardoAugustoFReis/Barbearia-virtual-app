@@ -1,5 +1,5 @@
-import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import {
+  DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   header: {
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.borderDrawer
+    borderBottomColor: theme.colors.borderDrawer,
   },
   username: {
     color: theme.colors.green,

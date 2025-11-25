@@ -63,29 +63,32 @@ const AppointmentForm = () => {
     fetchSlots();
   }, [barberId, date, serviceId]);
 
-  const handleSubmit = async () => {
-    if (!barberId || !serviceId || !startTime) {
-      alert("Preencha todos os campos!");
-      return;
-    }
-    try {
-      const dateFormat = new Date(startTime).toISOString();
+const handleSubmit = async () => {
+  if (!barberId || !serviceId || !startTime) {
+    alert("Preencha todos os campos!");
+    return;
+  }
 
-      const appointment = await createAppointment({
-        barberId: Number(barberId),
-        serviceId: Number(serviceId),
-        startTime: dateFormat,
-      });
+  try {
+    const dateFormat = new Date(startTime).toISOString();
 
+    const appointment = await createAppointment({
+      barberId: Number(barberId),
+      serviceId: Number(serviceId),
+      startTime: dateFormat,
+    });
+
+    if (appointment) {
       addAppointment(appointment);
-
-      if (appointment) addAppointment(appointment);
-
-      alert("Agendamento marcado");
-    } catch (error) {
-      console.log("Erro ao cadastrar horário", error);
+      alert("Agendamento marcado!");
+    } else {
+      alert("Erro ao criar o agendamento");
     }
-  };
+  } catch (error) {
+    console.log("Erro ao cadastrar horário", error);
+  }
+};
+
 
   return (
     <View style={styles.appointmentFormContainer}>

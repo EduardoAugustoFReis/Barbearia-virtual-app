@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <ScrollView
       style={styles.homeContainer}
-      contentContainerStyle={{ paddingBottom: 40 }}
+      contentContainerStyle={{ paddingBottom: 60 }}
     >
       <GreetingSection />
 
@@ -41,13 +41,15 @@ const Home = () => {
         </View>
       )}
 
-
-       {user?.role === "barbeiro" && (
+      {user?.role === "barbeiro" && (
         <View style={styles.contentHome}>
           <Text style={styles.contentHomeTitle}>Seu histórico</Text>
           <BarberHistory />
         </View>
       )}
+
+      
+      
     </ScrollView>
   );
 };

@@ -16,27 +16,36 @@ type CreateAppointmentDTO = {
 export default function AppointmentProvider({
   children,
 }: AppointmentProviderProps) {
-  const [appointments, setAppointments] = useState<IAppointment[]>([]);
+  const [clientAppointments, setClientAppointments] = useState<IAppointment[]>(
+    []
+  );
+  const [barberAppointments, setBarberAppointments] = useState<IAppointment[]>(
+    []
+  );
 
-  const fetchAppointments = async () => {
+  const fetchClientAppointments = async () => {
     try {
       const response = await api.get<IAppointment[]>(`/appointments/client`);
-
-      setAppointments(response.data);
+      setClientAppointments(response.data);
     } catch (error) {
-      console.log("Erro ao buscar compromissos", error);
+      console.log("Erro ao buscar compromissos do cliente", error);
     }
   };
 
-  const removeAppointment = (id: number) => {
-    setAppointments((prev) => prev.filter((appoint) => appoint.id !== id));
+  const fetchBarberAppointments = async () => {
+    try {
+      const response = await api.get<IAppointment[]>(`/appointments/barbers`);
+      setBarberAppointments(response.data);
+    } catch (error) {
+      console.log("Erro ao buscar compromissos do barbeiro", error);
+    }
   };
 
-  const addAppointment = (appointment: IAppointment) => {
-    setAppointments((prev) => [...prev, appointment]);
-  };
-
-  const createAppointment = async ({ barberId, serviceId, startTime }: CreateAppointmentDTO) => {
+  const createAppointment = async ({
+    barberId,
+    serviceId,
+    startTime,
+  }: CreateAppointmentDTO) => {
     try {
       const response = await api.post(
         `/appointments/barbers/${barberId}/services/${serviceId}`,
@@ -48,18 +57,34 @@ export default function AppointmentProvider({
     }
   };
 
+  const addAppointment = (appointment: IAppointment) => {
+    setClientAppointments((prev) => [...prev, appointment]);
+  };
+
+  const removeAppointment = (id: number, role: "client" | "barber") => {
+    if (role === "client") {
+      setClientAppointments((prev) => prev.filter((a) => a.id !== id));
+    } else {
+      setBarberAppointments((prev) => prev.filter((a) => a.id !== id));
+    }
+  };
+
   useEffect(() => {
-    fetchAppointments();
+    fetchClientAppointments();
+    fetchBarberAppointments();
   }, []);
 
   return (
     <AppointmentContext.Provider
       value={{
-        appointments,
-        setAppointments,
-        fetchAppointments,
-        removeAppointment,
+        clientAppointments,
+        setClientAppointments,
+
+        barberAppointments,
+        setBarberAppointments,
+
         addAppointment,
+        removeAppointment,
         createAppointment,
       }}
     >

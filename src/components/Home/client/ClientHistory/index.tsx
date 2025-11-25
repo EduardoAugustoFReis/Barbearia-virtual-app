@@ -14,19 +14,20 @@ import { theme } from "@/src/Theme";
 import { Feather } from "@expo/vector-icons";
 
 const ClientHistory = () => {
-  const { appointments, setAppointments, removeAppointment } = useAppointment();
+  const { clientAppointments, setClientAppointments, removeAppointment } =
+    useAppointment();
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
         const response = await api.get<IAppointment[]>(`/appointments/client`);
-        setAppointments(response.data);
+        setClientAppointments(response.data);
       } catch (error) {
         console.log("erro ao buscar compromissos", error);
       }
     };
     fetchAppointments();
-  }, [setAppointments]);
+  }, [setClientAppointments]);
 
   const deleteAppointment = async (id: number) => {
     Alert.alert(
@@ -40,7 +41,7 @@ const ClientHistory = () => {
           onPress: async () => {
             try {
               await api.delete(`/appointments/${id}`);
-              removeAppointment(id);
+              removeAppointment(id, 'client' );
             } catch (error) {
               console.log("erro ao deletar agendamento", error);
             }
@@ -52,7 +53,7 @@ const ClientHistory = () => {
 
   return (
     <ScrollView style={styles.clientHistoryContainer}>
-      {appointments.map((appoint) => {
+      {clientAppointments.map((appoint) => {
         const startTime = new Date(appoint.startTime);
         const endTime = new Date(appoint.endTime);
 

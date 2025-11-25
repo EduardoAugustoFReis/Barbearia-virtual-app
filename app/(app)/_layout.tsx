@@ -50,20 +50,25 @@ export default function PrivateLayout() {
             title: "Home",
           }}
         />
+
         <Drawer.Screen
           name="newService"
           options={{
             drawerLabel: "Novo Serviço",
             title: "Novo Serviço",
+            drawerItemStyle: user?.role === "admin" ? {} : { display: "none" },
           }}
         />
+
         <Drawer.Screen
           name="newEmployee"
           options={{
-            drawerLabel: "Novo funcionário",
-            title: "Novo funcionário",
+            drawerLabel: "Novo Funcionário",
+            title: "Novo Funcionário",
+            drawerItemStyle: user?.role === "admin" ? {} : { display: "none" },
           }}
         />
+
         <Drawer.Screen
           name="myAccount"
           options={{
