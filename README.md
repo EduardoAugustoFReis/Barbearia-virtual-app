@@ -24,15 +24,59 @@ A **Barbearia Virtual** é uma aplicação moderna desenvolvida com **React-Nati
 - ✔️ Consumo da API própria  
 - ✔️ Controle de permissões por usuário  
 ---
+## 📱 Screenshots do App
+
+### 🔐 Autenticação & Introdução
+<p align="center">
+  <img src="assets/screenshots/intro.jpeg" width="220" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/login.jpeg" width="220" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/signIn.jpeg" width="220" />
+</p>
+
+---
+
+### 🏠 Navegação & Serviços
+<p align="center">
+  <img src="assets/screenshots/services.jpeg" width="220" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/barbers.jpeg" width="220" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/appointments.jpeg" width="220" />
+</p>
+
+---
+
+### 📅 Histórico & Conta
+<p align="center">
+  <img src="assets/screenshots/historyClient.jpeg" width="220" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/historyBarber.jpeg" width="220" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/account.jpeg" width="220" />
+</p>
+
+---
+
+### ⚙️ Administração
+<p align="center">
+  <img src="assets/screenshots/drawer.jpeg" width="220" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/newService.jpeg" width="220" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/newEmployee.jpeg" width="220" />
+</p>
+
 
 ## 🖥️ Como rodar a aplicação
 
 ### 1️⃣ Clone o repositório e instale as dependências
 ```bash
-git clone https://github.com/EduardoAugustoFReis/Barbearia-virtual.git
+git clone https://github.com/EduardoAugustoFReis/Barbearia-virtual-app.git
 
 # Acesse o diretório do projeto
-cd Barbearia-virtual
+cd Barbearia-virtual-app
 
 # Instale as dependências
 npm install
