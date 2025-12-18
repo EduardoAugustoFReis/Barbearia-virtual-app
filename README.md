@@ -1,50 +1,93 @@
-# Welcome to your Expo app 👋
+# 💈 Barbearia Virtual
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A **Barbearia Virtual** é uma aplicação moderna desenvolvida com **React-Native.js**, **TypeScript** e **Expo**, oferecendo uma experiência completa para gerenciamento de agendamentos, visualização de barbeiros, serviços e muito mais. O sistema consome uma **API própria** desenvolvida em Node.js.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Tecnologias Utilizadas
 
-   ```bash
-   npm install
-   ```
+- **React-Native.js**
+- **TypeScript**
+- **Expo**
+- **Axios**
+- **JWT Autenticação**
+---
 
-2. Start the app
+## ⚙️ Funcionalidades
 
-   ```bash
-   npx expo start
-   ```
+- ✔️ Autenticação com JWT  
+- ✔️ Listagem de barbeiros  
+- ✔️ Agendamento de serviços  
+- ✔️ Filtragem por "role" 
+- ✔️ Cancelamento e remoção de agendamentos
+- ✔️ Upload de avatar
+- ✔️ Consumo da API própria  
+- ✔️ Controle de permissões por usuário  
+---
 
-In the output, you'll find options to open the app in a
+## 🖥️ Como rodar a aplicação
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+### 1️⃣ Clone o repositório e instale as dependências
 ```bash
-npm run reset-project
+git clone https://github.com/EduardoAugustoFReis/Barbearia-virtual.git
+
+# Acesse o diretório do projeto
+cd Barbearia-virtual
+
+# Instale as dependências
+npm install
+
+# Se ainda não possuir o Expo CLI
+npm install -g expo-cli
+
+2️⃣ Configure a URL da API (baseURL do Axios)
+
+# Para que a aplicação consiga consumir a API, é necessário configurar a URL base no arquivo:
+src/services/api.ts
+
+# Lá você encontrará algo como:
+export const api = axios.create({
+  baseURL: process.env.EXPO_PUBLIC_API_URL,
+});
+
+# Na raíz do projeto, caso não exista, crie um arquivo com o nome de ".env" e nele coloque a coloque o seguinte trecho de código.
+
+EXPO_PUBLIC_API_URL=http://localhost:3333
+
+# Importante!
+# Em dispositivos físicos (seu celular por exemplo), localhost não funciona.
+# Use sempre o IP da sua máquina na mesma rede Wi-Fi.
+# Exemplo de uso:
+
+EXPO_PUBLIC_API_URL=http://192.168.x.x:3333
+
+3️⃣ Execute o projeto
+npm run start
+# ou
+expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 📚 API Consumida
 
-## Learn more
+A aplicação consome a API própria:
 
-To learn more about developing your project with Expo, look at the following resources:
+🔗 **[Repositório da API](https://github.com/EduardoAugustoFReis/api-barbearia)**
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Principais endpoints:
+```
+POST /login
+POST /users
+GET  /users
+GET  /users/barbers
+GET  /services
+POST /appointments
+GET  /appointments
+DELETE /appointments/:id
+````
 
-## Join the community
+## 🧑‍💻 Autor
 
-Join our community of developers creating universal apps.
+Desenvolvido por **Eduardo Augusto Franciscon Reis**
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+💼 **LinkedIn:**  
+[www.linkedin.com/in/eduardo-augusto-franciscon-reis-173410283](https://www.linkedin.com/in/eduardo-augusto-franciscon-reis-173410283/)
